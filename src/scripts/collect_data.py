@@ -10,7 +10,7 @@ def obtain_raw_data(pageNum):
     params = {
         "api_key": api_key,
         #"query": query,
-        "dataType": "Branded",
+        "dataType": ["Branded","Foundation"], #Branded, Foundation, Survey (FNDDS), SR Legacy
         "pageSize": 200,
         "pageNumber": pageNum
     }
@@ -30,7 +30,7 @@ def save_raw_json(page_num,json_data):
     df = pd.json_normalize(json_data)
     df.to_parquet(rf'C:\Users\marcu\Documents\machine_learning_projects\recipe_recommender\data\raw_data\dataframe_{page_num}.parquet', compression='brotli')
 
-for pageNum in range(1,4):
+for pageNum in range(1,10):
     save_raw_json(pageNum,obtain_raw_data(pageNum))
 
 
