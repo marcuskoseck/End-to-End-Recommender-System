@@ -20,6 +20,20 @@ class Data_organizer:
     def open_database(self):
         return sqlite3.connect("USDA_foods.db")
 
+    def branded_foods(self,df):
+        foods_df = df[["fdcId","description","dataType","publicationDate","gtinUpc"]]
+        nutrients_df =  df[["gtinUpc","number","name","unitName","amount"]]
+        brands_df = df[["gtinUpc","brandOwner"]]
+
+    def foundational_foods(self,df):
+        foods_df = df[["fdcId","description","dataType","publicationDate","ndbNumber"]]
+        nutrients_df =  df[["ndbNumber","number","name","unitName","amount"]]
+        
+
+    def survey_foods(self,df):
+        foods_df = df[["fdcId","description","dataType","publicationDate","foodCode"]]
+        nutrients_df =  df[["foodCode","number","name","unitName","amount"]]
+    
     def fill_tables(self):
         
         raw_data_dir = r"C:\Users\marcu\Documents\machine_learning_projects\recipe_recommender\data\raw_data"
@@ -37,12 +51,25 @@ class Data_organizer:
                 ],
                 axis=1
             )
-            try:
-                foods_df = df[["fdcId","description","dataType","publicationDate","ndbNumber"]]
-                nutrients_df =  df[["number","name","unitName"]]
-                food_nut_df = df[["fdcId","number","amount","derivationCode","derivationDescription"]]
-            except:
-                breakpoint()
+            data_type = df["dataType"].iloc[0]
+            # TODO: save to sql tables.
+            if data_type == "Branded":
+                self.branded_foods(df)
+            elif data_type == "Foundation":
+                self.foundational_foods(df)
+            elif data_type == "SR Legacy":
+                self.foundational_foods(df)
+            elif data_type == "Survey (FNDDS)":
+                self.survey_foods(df)
+            else:
+                raise(f"{data_type} is an unknown type")
+            
+            # try:
+            #     foods_df = df[["fdcId","description","dataType","publicationDate","ndbNumber"]]
+            #     nutrients_df =  df[["number","name","unitName"]]
+            #     food_nut_df = df[["fdcId","number","amount","derivationCode","derivationDescription"]]
+            # except:
+            #     breakpoint()
             # all_foods_dfs.append(foods_df)
             # all_nut_dfs.append(nutrients_df)
             # all_food_nut_dfs.append(food_nut_df)
