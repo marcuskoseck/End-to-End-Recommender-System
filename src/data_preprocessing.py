@@ -16,8 +16,6 @@ def read_file(file_path):
     if file_path[-3:].lower() == "csv":
         df = pd.read_csv(file_path)
         return df
-    elif file_path[-2:] == "db":
-        do = DataOrganizer()
 
     else:
         breakpoint()

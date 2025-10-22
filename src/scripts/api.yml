@@ -1,0 +1,10 @@
+links:
+  usda: https://api.nal.usda.gov/fdc/v1/foods/list
+  store: https://fakestoreapi.com/products/1
+
+api_keys:
+  usda: NhfPgJChrCiU2JaNEcZRTNkdkMw6RDKLhBsRarou
+  store: None
+
+usda_params:
+  

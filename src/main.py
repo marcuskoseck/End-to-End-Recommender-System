@@ -20,7 +20,7 @@ def open_yml(file_path: str) -> dict:
         settings = yaml.safe_load(file)
     return settings
 
-def run_test_pipeline(settings: dict) -> None:
+def run_pipeline(settings: dict) -> None:
     '''
     A testing function for the pipeline with a simple model and
     a csv file for the data. The path to this data can be configured
@@ -50,26 +50,6 @@ def run_test_pipeline(settings: dict) -> None:
     print(recommendations)
     print("\n\n")
 
-
-def run_recipe_recommender(settings: dict) -> None:
-    '''
-    Runs main pipeline
-
-    args:
-        settings (dict): a dictionary containing settings for the entire
-                        pipeline
-
-    return:
-        None
-    '''
-    #data preprocessing
-    settings["test_data"] = run_data_preprocessing(settings["data"])
-    #feature engineering
-    settings = run_feature_engineering(settings)
-    #model building
-    
-    pass
-
 def main(yml_file_path: str) -> None:
     '''
     main function for the pipeline
@@ -81,10 +61,7 @@ def main(yml_file_path: str) -> None:
         None
     '''
     settings = open_yml(yml_file_path)
-    if settings["test_data"]["enable_test_pipeline"]:
-        run_test_pipeline(settings)
-    else:
-        run_recipe_recommender(settings)
+    run_pipeline(settings)
 
     
 

@@ -1,9 +1,5 @@
 test_data:
-  enable_test_pipeline: True
   file_path: data\imdb\all_data\TMDb_updated.CSV
-
-data:
-  file_path: data\usda\USDA_foods.db
 
 feature_engineering:
   remove_punctuation: True
